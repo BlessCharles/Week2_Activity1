@@ -35,7 +35,7 @@ session_start();
 	<div class="menu-tray">
 		<span class="me-2">Menu:</span>
 		<?php if (isset($_SESSION['user_id'])): ?>
-			<a href="login/logout.php" class="btn btn-sm btn-outline-danger">Logout</a>
+			<a href="login/logout.php" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to log out?');">Logout</a>
 		<?php else: ?>
 			<a href="login/register.php" class="btn btn-sm btn-outline-primary">Register</a>
 			<a href="login/login.php" class="btn btn-sm btn-outline-secondary">Login</a>
