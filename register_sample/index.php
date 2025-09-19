@@ -1,3 +1,9 @@
+<?php
+session_start();
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,8 +34,13 @@
 
 	<div class="menu-tray">
 		<span class="me-2">Menu:</span>
-		<a href="login/register.php" class="btn btn-sm btn-outline-primary">Register</a>
-		<a href="login/login.php" class="btn btn-sm btn-outline-secondary">Login</a>
+		<?php if (isset($_SESSION['user_id'])): ?>
+			<a href="login/logout.php" class="btn btn-sm btn-outline-danger">Logout</a>
+		<?php else: ?>
+			<a href="login/register.php" class="btn btn-sm btn-outline-primary">Register</a>
+			<a href="login/login.php" class="btn btn-sm btn-outline-secondary">Login</a>
+		<?php endif; ?>
+
 	</div>
 
 	<div class="container" style="padding-top:120px;">

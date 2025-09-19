@@ -68,4 +68,17 @@ class User extends db_connection
         return $stmt->get_result()->fetch_assoc();
     }
 
+    public function loginUser($email, $password) {
+        $stmt = $this->db->prepare("SELECT * FROM customer WHERE customer_email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+
+        if ($result && password_verify($password, $result['customer_pass'])) {
+            return $result;
+        }
+        return false;
+    }
+
+
 }

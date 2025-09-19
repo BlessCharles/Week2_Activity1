@@ -18,3 +18,8 @@ function get_user_by_email_ctr($email)
     $user = new User();
     return $user->getUserByEmail($email);
 }
+
+function login_user_ctr($email, $password) {
+    $user = new User();
+    return $user->loginUser($email, $password);
+}
