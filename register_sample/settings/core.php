@@ -7,10 +7,23 @@ session_start();
 ob_start();
 
 //funtion to check for login
-if (!isset($_SESSION['id'])) {
-    header("Location: ../Login/login_register.php");
-    exit;
+function isLoggedIn(){
+    if (!isset($_SESSION['user_id'])) {
+        return false;
+    }
+    else{
+        return true;
+    }
 }
+
+function isAdmin(){
+    if (isLoggedIn()){
+        return $_SESSION['user_role'] == 2;
+    }
+    return false;
+}
+
+
 
 
 //function to get user ID
