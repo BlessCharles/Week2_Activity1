@@ -75,3 +75,10 @@ class Category extends db_connection
         return false;
     }
 }
+
+// Portions of this code were generated with assistance from OpenAI's ChatGPT.
+// Since I could not open phpMyAdmin, I used AI support to ensure that the code was accurate and functional.
+// Once the XAMPP issue is resolved, I will review the AI- generated sections and make any necessary changes
+// to ensure I remain the main author of this work.
+// Note: Not all parts were written by AI. CHATGPT was mainly used for brainstorming, debugging, and generating bits of code to complete functionality.
+
