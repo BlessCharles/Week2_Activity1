@@ -25,13 +25,13 @@ $user= login_user_ctr($email, $password);
 
 if ($user) {
     $_SESSION['user_id'] = $user['customer_id'];
-    $_SESSION['role'] = $user['user_role'];
+    $_SESSION['user_role'] = $user['user_role'];
     $_SESSION['name'] = $user['customer_name'];
 
     $response['status'] = 'success';
     $response['message'] = 'Login successful!';
     $response['user_id'] = $user['customer_id'];
-    $response['role'] = $user['user_role'];
+    $response['user_role'] = $user['user_role'];
     $response['name'] = $user['customer_name'];
 } else {
     $response['status'] = 'error';
