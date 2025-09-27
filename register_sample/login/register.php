@@ -165,19 +165,7 @@
                                 <label for="phone_number" class="form-label">Phone Number <i class="fa fa-phone"></i></label>
                                 <input type="tel" class="form-control animate__animated animate__fadeInUp" id="phone_number" name="phone_number" required>
                             </div>
-                            <div class="mb-4">
-                                <label class="form-label">Register As</label>
-                                <div class="d-flex justify-content-start">
-                                    <div class="form-check me-3 custom-radio">
-                                        <input class="form-check-input" type="radio" name="role" id="customer" value="1" checked>
-                                        <label class="form-check-label" for="customer">Customer</label>
-                                    </div>
-                                    <div class="form-check custom-radio">
-                                        <input class="form-check-input" type="radio" name="role" id="owner" value="2">
-                                        <label class="form-check-label" for="owner">Restaurant Owner</label>
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <button type="submit" class="btn btn-custom w-100 animate-pulse-custom">Register</button>
                         </form>
                     </div>

@@ -22,7 +22,7 @@ $password = $_POST['password'];
 $country =$_POST['country'];
 $city =$_POST['city'];
 $phone_number = $_POST['phone_number'];
-$role = $_POST['role'];
+$role = 2;
 
 $user_id = register_user_ctr($name, $email, $password,$country,$city, $phone_number, $role);
 
