@@ -2,9 +2,6 @@
 
 require_once '../settings/db_class.php';
 
-/**
- * 
- */
 class User extends db_connection
 {
     private $user_id;

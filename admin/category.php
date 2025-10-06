@@ -42,9 +42,9 @@ if (!isLoggedIn() || !isAdmin()) {
                 <table class="table table-striped" id="categories-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Actions</th>
+                            
+                            <th style="width: 70%;">Name</th>
+                            <th style="width: 30%;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>

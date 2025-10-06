@@ -38,7 +38,7 @@ function renderCategories(items) {
     }
     items.forEach(function(it) {
         const tr = $('<tr>');
-        tr.append($('<td>').text(it.cat_id));
+        //tr.append($('<td>').text(it.cat_id));
         tr.append($('<td>').text(it.cat_name));
         const actions = $('<td>');
         const editBtn = $('<button class="btn btn-sm btn-outline-primary me-2">Edit</button>').click(function() {
