@@ -20,9 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `shoppn`
 --
-CREATE DATABASE IF NOT EXISTS `shoppn`;
-USE `shoppn`;
-
 
 -- --------------------------------------------------------
 
