@@ -38,6 +38,7 @@ session_start();
 			<?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 1): ?>
 				<!-- Admin menu -->
 				<a href="admin/category.php" class="btn btn-sm btn-outline-info">Category</a>
+				<a href="admin/brand.php" class="btn btn-sm btn-outline-info">Brand</a>
 				<a href="login/logout.php" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to log out?');">Logout</a>
 			<?php else: ?>
 				<!-- Regular user menu -->
