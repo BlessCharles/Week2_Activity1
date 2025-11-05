@@ -41,11 +41,13 @@ $(document).ready(function() {
                                     <td>${brand.brand_name}</td>
                                     <td>${brand.cat_name || 'N/A'}</td>
                                     <td>
-                                        <button class="btn btn-sm btn-warning edit-btn" data-id="${brand.brand_id}" data-name="${brand.brand_name}">
-                                            <i class="fas fa-edit"></i> Edit
+                                        <button class="btn btn-sm btn-outline-primary edit-btn" data-id="${brand.brand_id}" data-name="${brand.brand_name}">
+
+                                            Edit
                                         </button>
-                                        <button class="btn btn-sm btn-danger delete-btn" data-id="${brand.brand_id}">
-                                            <i class="fas fa-trash"></i> Delete
+                                        <button class="btn btn-sm btn-outline-danger delete-btn" data-id="${brand.brand_id}">
+
+                                            Delete
                                         </button>
                                     </td>
                                 </tr>

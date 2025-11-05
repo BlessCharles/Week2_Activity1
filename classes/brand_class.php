@@ -8,9 +8,7 @@ class Brand extends db_connection {
         parent::db_connect();
     }
 
-    /**
-     * Add a new brand
-     */
+
     public function addBrand($brand_name, $cat_id)
     {
         $brand_name = trim($brand_name);
@@ -33,9 +31,7 @@ class Brand extends db_connection {
         return false;
     }
 
-    /**
-     * Get all brands with their categories
-     */
+
     public function getAllBrands()
     {
         $stmt = $this->db->prepare("
@@ -51,9 +47,7 @@ class Brand extends db_connection {
         return $rows;
     }
 
-    /**
-     * Update a brand
-     */
+
     public function updateBrand($brand_id, $brand_name)
     {
         $brand_name = trim($brand_name);
@@ -76,9 +70,7 @@ class Brand extends db_connection {
         return false;
     }
 
-    /**
-     * Delete a brand
-     */
+
     public function deleteBrand($brand_id)
     {
         $stmt = $this->db->prepare("DELETE FROM brands WHERE brand_id = ?");
