@@ -9,7 +9,6 @@ if (!isLoggedIn() || !isAdmin()) {
 
 ?>
 
-
 <!doctype html>
 <html>
 <head>
@@ -18,37 +17,107 @@ if (!isLoggedIn() || !isAdmin()) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-		body {
-			background-color: #faf3e0;
-		}
+       body {
+          background-color: #faf3e0;
+          margin: 0;
+       }
+       /* Sidebar Styles */
+       .sidebar {
+          position: fixed;
+          left: 0;
+          top: 0;
+          height: 100vh;
+          width: 250px;
+          background: #dfca92ff;
+          padding: 20px;
+          box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+          overflow-y: auto;
+       }
+       .sidebar h4 {
+          color: #2c3e50;
+          margin-bottom: 30px;
+          padding-bottom: 15px;
+          border-bottom: 2px solid #c9b570;
+       }
+       .sidebar a {
+          display: block;
+          padding: 12px 15px;
+          margin-bottom: 8px;
+          color: #2c3e50;
+          text-decoration: none;
+          border-radius: 8px;
+          transition: all 0.3s;
+       }
+       .sidebar a:hover {
+          background: #c9b570;
+          padding-left: 20px;
+       }
+       .sidebar a.active {
+          background: #b8a55c;
+          font-weight: bold;
+       }
+       .sidebar a i {
+          margin-right: 10px;
+          width: 20px;
+       }
+       /* Main Content */
+       .main-content {
+          margin-left: 250px;
+          padding: 30px;
+       }
     </style>
 </head>
 
-<body class="p-4">
-    <div class="container">
-        <h2>Category Management</h2>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h4><i class="fas fa-shopping-bag"></i> Admin Panel</h4>
+        <a href="category.php" class="active">
+            <i class="fas fa-list"></i> Categories
+        </a>
+        <a href="brand.php">
+            <i class="fas fa-tag"></i> Brands
+        </a>
+        <a href="product.php">
+            <i class="fas fa-box"></i> Products
+        </a>
+        <hr style="border-color: #c9b570; margin: 20px 0;">
+        <a href="../index.php">
+            <i class="fas fa-home"></i> Back to Home
+        </a>
+        <a href="../login/logout.php" onclick="return confirm('Are you sure you want to log out?');">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+    </div>
 
-        <div class="card my-3">
+    <!-- Main Content -->
+    <div class="main-content">
+        <h2><i class="fas fa-list"></i> Category Management</h2>
+
+        <div class="card my-4">
             <div class="card-body">
+                <h5 class="card-title">Add New Category</h5>
                 <form id="add-category-form" class="d-flex gap-2">
                     <input type="text" id="cat_name" name="cat_name" class="form-control" placeholder="New category name" required maxlength="100">
-                    <button class="btn btn-primary" type="submit">Add Category</button>
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-plus"></i> Add Category
+                    </button>
                 </form>
             </div>
         </div>
 
         <div class="card">
             <div class="card-body">
+                <h5 class="card-title">All Categories</h5>
                 <table class="table table-striped" id="categories-table">
                     <thead>
                         <tr>
-                            
                             <th style="width: 70%;">Name</th>
                             <th style="width: 30%;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-            
+                        <!-- Populated by JS -->
                     </tbody>
                 </table>
             </div>
@@ -80,11 +149,10 @@ if (!isLoggedIn() || !isAdmin()) {
         </div>
     </div>
 
-    <!-- scripts -->
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script src="../js/category.js"></script>
 </body>
 </html>

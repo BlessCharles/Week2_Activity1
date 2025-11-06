@@ -19,51 +19,148 @@ if (!isLoggedIn() || !isAdmin()) {
     <style>
        body {
           background-color: #faf3e0;
+          margin: 0;
        }
-       .product-image {
-          width: 80px;
-          height: 80px;
+       /* Sidebar Styles */
+       .sidebar {
+          position: fixed;
+          left: 0;
+          top: 0;
+          height: 100vh;
+          width: 250px;
+          background: #dfca92ff;
+          padding: 20px;
+          box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+          overflow-y: auto;
+       }
+       .sidebar h4 {
+          color: #2c3e50;
+          margin-bottom: 30px;
+          padding-bottom: 15px;
+          border-bottom: 2px solid #c9b570;
+       }
+       .sidebar a {
+          display: block;
+          padding: 12px 15px;
+          margin-bottom: 8px;
+          color: #2c3e50;
+          text-decoration: none;
+          border-radius: 8px;
+          transition: all 0.3s;
+       }
+       .sidebar a:hover {
+          background: #c9b570;
+          padding-left: 20px;
+       }
+       .sidebar a.active {
+          background: #b8a55c;
+          font-weight: bold;
+       }
+       .sidebar a i {
+          margin-right: 10px;
+          width: 20px;
+       }
+       /* Main Content */
+       .main-content {
+          margin-left: 250px;
+          padding: 30px;
+       }
+       /* Product Cards */
+       .products-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+          gap: 25px;
+          margin-top: 20px;
+       }
+       .product-card {
+          background: white;
+          border-radius: 12px;
+          overflow: hidden;
+          box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+          transition: transform 0.2s;
+       }
+       .product-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+       }
+       .product-card img {
+          width: 100%;
+          height: 200px;
           object-fit: cover;
-          border-radius: 5px;
+       }
+       .product-card-body {
+          padding: 15px;
+       }
+       .product-title {
+          font-size: 16px;
+          font-weight: bold;
+          margin-bottom: 8px;
+          color: #2c3e50;
+       }
+       .product-price {
+          font-size: 20px;
+          color: #27ae60;
+          font-weight: bold;
+          margin: 10px 0;
+       }
+       .product-meta {
+          font-size: 13px;
+          color: #7f8c8d;
+          margin-bottom: 5px;
+       }
+       .product-actions {
+          display: flex;
+          gap: 8px;
+          margin-top: 12px;
+       }
+       .product-actions button {
+          flex: 1;
+          padding: 8px;
+          font-size: 14px;
+       }
+       .header-section {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 25px;
        }
     </style>
 </head>
 
-<body class="p-4">
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2>Product Management</h2>
-            <div>
-                <button class="btn btn-success" id="add-product-btn">
-                    <i class="fas fa-plus"></i> Add Product
-                </button>
-                <a href="../index.php" class="btn btn-secondary">
-                    <i class="fas fa-home"></i> Home
-                </a>
-            </div>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h4><i class="fas fa-shopping-bag"></i> Admin Panel</h4>
+        <a href="category.php">
+            <i class="fas fa-list"></i> Categories
+        </a>
+        <a href="brand.php">
+            <i class="fas fa-tag"></i> Brands
+        </a>
+        <a href="product.php" class="active">
+            <i class="fas fa-box"></i> Products
+        </a>
+        <hr style="border-color: #c9b570; margin: 20px 0;">
+        <a href="../index.php">
+            <i class="fas fa-home"></i> Back to Home
+        </a>
+        <a href="../login/logout.php" onclick="return confirm('Are you sure you want to log out?');">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header-section">
+            <h2><i class="fas fa-box"></i> Product Management</h2>
+            <button class="btn btn-success btn-lg" id="add-product-btn">
+                <i class="fas fa-plus"></i> Add New Product
+            </button>
         </div>
 
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">All Products</h5>
-                <div class="table-responsive">
-                    <table class="table table-striped" id="products-table">
-                        <thead>
-                            <tr>
-                                <th>Image</th>
-                                <th>Title</th>
-                                <th>Category</th>
-                                <th>Brand</th>
-                                <th>Price</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Populated by JS -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <!-- Products Grid -->
+        <div class="products-grid" id="products-grid">
+            <!-- Populated by JS -->
         </div>
     </div>
 

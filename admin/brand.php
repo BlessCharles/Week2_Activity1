@@ -19,20 +19,82 @@ if (!isLoggedIn() || !isAdmin()) {
     <style>
        body {
           background-color: #faf3e0;
+          margin: 0;
+       }
+       /* Sidebar Styles */
+       .sidebar {
+          position: fixed;
+          left: 0;
+          top: 0;
+          height: 100vh;
+          width: 250px;
+          background: #dfca92ff;
+          padding: 20px;
+          box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+          overflow-y: auto;
+       }
+       .sidebar h4 {
+          color: #2c3e50;
+          margin-bottom: 30px;
+          padding-bottom: 15px;
+          border-bottom: 2px solid #c9b570;
+       }
+       .sidebar a {
+          display: block;
+          padding: 12px 15px;
+          margin-bottom: 8px;
+          color: #2c3e50;
+          text-decoration: none;
+          border-radius: 8px;
+          transition: all 0.3s;
+       }
+       .sidebar a:hover {
+          background: #c9b570;
+          padding-left: 20px;
+       }
+       .sidebar a.active {
+          background: #b8a55c;
+          font-weight: bold;
+       }
+       .sidebar a i {
+          margin-right: 10px;
+          width: 20px;
+       }
+       /* Main Content */
+       .main-content {
+          margin-left: 250px;
+          padding: 30px;
        }
     </style>
 </head>
 
-<body class="p-4">
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2>Brand Management</h2>
-            <a href="../index.php" class="btn btn-secondary">
-                <i class="fas fa-home"></i> Home
-            </a>
-        </div>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h4><i class="fas fa-shopping-bag"></i> Admin Panel</h4>
+        <a href="category.php">
+            <i class="fas fa-list"></i> Categories
+        </a>
+        <a href="brand.php" class="active">
+            <i class="fas fa-tag"></i> Brands
+        </a>
+        <a href="product.php">
+            <i class="fas fa-box"></i> Products
+        </a>
+        <hr style="border-color: #c9b570; margin: 20px 0;">
+        <a href="../index.php">
+            <i class="fas fa-home"></i> Back to Home
+        </a>
+        <a href="../login/logout.php" onclick="return confirm('Are you sure you want to log out?');">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+    </div>
 
-        <div class="card my-3">
+    <!-- Main Content -->
+    <div class="main-content">
+        <h2><i class="fas fa-tag"></i> Brand Management</h2>
+
+        <div class="card my-4">
             <div class="card-body">
                 <h5 class="card-title">Add New Brand</h5>
                 <form id="add-brand-form" class="row g-2">
@@ -45,7 +107,9 @@ if (!isLoggedIn() || !isAdmin()) {
                         </select>
                     </div>
                     <div class="col-md-2">
-                        <button class="btn btn-primary w-100" type="submit">Add Brand</button>
+                        <button class="btn btn-primary w-100" type="submit">
+                            <i class="fas fa-plus"></i> Add
+                        </button>
                     </div>
                 </form>
             </div>

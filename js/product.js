@@ -47,7 +47,7 @@ $(document).ready(function() {
         });
     }
 
-    // Load products
+    // Load products and render as cards
     function loadProducts() {
         $.ajax({
             url: '../actions/fetch_product_action.php',
@@ -55,48 +55,68 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(res) {
                 if (res.status === 'success') {
-                    let rows = '';
-                    if (res.data.length === 0) {
-                        rows = '<tr><td colspan="6" class="text-center">No products yet</td></tr>';
-                    } else {
-                        res.data.forEach(function(product) {
-                            let imageHtml = product.product_image
-                                ? `<img src="../${product.product_image}" class="product-image" alt="${product.product_title}">`
-                                : '<span class="text-muted">No image</span>';
-
-                            rows += `
-                                <tr>
-                                    <td>${imageHtml}</td>
-                                    <td>${product.product_title}</td>
-                                    <td>${product.cat_name || 'N/A'}</td>
-                                    <td>${product.brand_name || 'N/A'}</td>
-                                    <td>$${parseFloat(product.product_price).toFixed(2)}</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-outline-primary edit-btn"
-                                            data-id="${product.product_id}"
-                                            data-cat="${product.product_cat}"
-                                            data-brand="${product.product_brand}"
-                                            data-title="${product.product_title}"
-                                            data-price="${product.product_price}"
-                                            data-desc="${product.product_desc || ''}"
-                                            data-image="${product.product_image || ''}"
-                                            data-keywords="${product.product_keywords || ''}">
-                                            Edit
-                                        </button>
-                                        <button class="btn btn-sm btn-outline-danger delete-btn" data-id="${product.product_id}">
-                                            Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            `;
-                        });
-                    }
-                    $('#products-table tbody').html(rows);
+                    renderProducts(res.data);
                 }
             },
             error: function() {
                 Swal.fire('Error', 'Failed to load products', 'error');
             }
+        });
+    }
+
+    // Render products as cards
+    function renderProducts(products) {
+        const grid = $('#products-grid');
+        grid.empty();
+
+        if (products.length === 0) {
+            grid.html(`
+                <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
+                    <i class="fas fa-box-open" style="font-size: 64px; color: #bdc3c7; margin-bottom: 20px;"></i>
+                    <p class="text-muted" style="font-size: 18px;">No products found. Click "Add New Product" to get started!</p>
+                </div>
+            `);
+            return;
+        }
+
+        products.forEach(function(product) {
+            const imageSrc = product.product_image
+                ? `../${product.product_image}`
+                : 'https://via.placeholder.com/300x200?text=No+Image';
+
+            const card = `
+                <div class="product-card">
+                    <img src="${imageSrc}" alt="${product.product_title}" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
+                    <div class="product-card-body">
+                        <div class="product-title">${product.product_title}</div>
+                        <div class="product-meta">
+                            <i class="fas fa-list"></i> ${product.cat_name || 'N/A'}
+                        </div>
+                        <div class="product-meta">
+                            <i class="fas fa-tag"></i> ${product.brand_name || 'N/A'}
+                        </div>
+                        <div class="product-price">GH₵ ${parseFloat(product.product_price).toFixed(2)}</div>
+                        ${product.product_desc ? `<p class="text-muted small mb-2" style="margin-top: 8px;">${product.product_desc.substring(0, 80)}${product.product_desc.length > 80 ? '...' : ''}</p>` : ''}
+                        <div class="product-actions">
+                            <button class="btn btn-sm btn-primary edit-btn"
+                                data-id="${product.product_id}"
+                                data-cat="${product.product_cat}"
+                                data-brand="${product.product_brand}"
+                                data-title="${product.product_title}"
+                                data-price="${product.product_price}"
+                                data-desc="${product.product_desc || ''}"
+                                data-image="${product.product_image || ''}"
+                                data-keywords="${product.product_keywords || ''}">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-sm btn-danger delete-btn" data-id="${product.product_id}">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            grid.append(card);
         });
     }
 
@@ -130,7 +150,7 @@ $(document).ready(function() {
 
         // Show existing image preview
         if ($(this).data('image')) {
-            $('#image-preview').html(`<img src="../${$(this).data('image')}" class="product-image" alt="Current image">`);
+            $('#image-preview').html(`<img src="../${$(this).data('image')}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 5px;" alt="Current image">`);
         } else {
             $('#image-preview').html('');
         }
@@ -146,7 +166,7 @@ $(document).ready(function() {
         if (e.target.files && e.target.files[0]) {
             let reader = new FileReader();
             reader.onload = function(e) {
-                $('#image-preview').html(`<img src="${e.target.result}" class="product-image" alt="Preview">`);
+                $('#image-preview').html(`<img src="${e.target.result}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 5px;" alt="Preview">`);
             }
             reader.readAsDataURL(e.target.files[0]);
         }
