@@ -39,6 +39,7 @@ session_start();
 				<!-- Admin menu -->
 				<a href="admin/category.php" class="btn btn-sm btn-outline-info">Category</a>
 				<a href="admin/brand.php" class="btn btn-sm btn-outline-info">Brand</a>
+				<a href="admin/product.php" class="btn btn-sm btn-outline-success">Add Product</a>
 				<a href="login/logout.php" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to log out?');">Logout</a>
 			<?php else: ?>
 				<!-- Regular user menu -->

@@ -1,0 +1,3 @@
+# Ignore uploads folder and its contents
+uploads/
+uploads/*
