@@ -129,9 +129,7 @@ if (!$product) {
                         </a>
                     </div>
 
-                    <div class="mt-4 text-muted">
-                        <small>Product ID: <?php echo $product['product_id']; ?></small>
-                    </div>
+
                 </div>
             </div>
         </div>
