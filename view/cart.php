@@ -53,7 +53,7 @@ session_start();
 </head>
 <body>
     <div class="top-nav d-flex justify-content-between align-items-center">
-       <h3><i class="fas fa-shopping-bag"></i> My Shop</h3>
+       <h3><i class="fas fa-shopping-bag"></i>CharlesStop</h3>
        <div>
           <a href="../index.php" class="btn btn-outline-secondary">
              <i class="fas fa-home"></i> Home

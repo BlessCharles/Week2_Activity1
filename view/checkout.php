@@ -64,7 +64,7 @@ if (!isset($_SESSION['user_id'])) {
 </head>
 <body>
     <div class="top-nav d-flex justify-content-between align-items-center">
-       <h3><i class="fas fa-shopping-bag"></i> My Shop</h3>
+       <h3><i class="fas fa-shopping-bag"></i>CharlesStop</h3>
        <div>
           <a href="cart.php" class="btn btn-outline-secondary">
              <i class="fas fa-arrow-left"></i> Back to Cart
