@@ -81,6 +81,17 @@ $products_page = array_slice($products, $offset, $per_page);
             border-color: #7a6321ff;
             color: #fff;
         }
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #dc3545;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 11px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -89,6 +100,10 @@ $products_page = array_slice($products, $offset, $per_page);
         <div class="container">
             <a class="navbar-brand" href="../index.php"><strong>CharlesStop</strong></a>
             <div class="d-flex">
+                <a href="cart.php" class="btn btn-sm btn-outline-info me-2 position-relative">
+                    <i class="fas fa-shopping-cart"></i> Cart
+                    <span class="cart-badge" id="cart-count">0</span>
+                </a>
                 <a href="../index.php" class="btn btn-sm btn-outline-secondary">Home</a>
             </div>
         </div>
@@ -154,14 +169,16 @@ $products_page = array_slice($products, $offset, $per_page);
                                 <span class="badge bg-info mb-2"><?php echo htmlspecialchars($product['brand_name']); ?></span>
 
                                 <h5 class="card-title"><?php echo htmlspecialchars($product['product_title']); ?></h5>
-                                <p class="price-tag">$<?php echo number_format($product['product_price'], 2); ?></p>
+                                <p class="price-tag">GH₵ <?php echo number_format($product['product_price'], 2); ?></p>
 
                                 <div class="d-grid gap-2">
                                     <a href="single_product.php?id=<?php echo $product['product_id']; ?>"
                                        class="btn btn-outline-primary btn-sm">
                                         <i class="fas fa-eye"></i> View Details
                                     </a>
-                                    <button class="btn btn-custom btn-sm">
+                                    <button class="btn btn-custom btn-sm add-to-cart-btn" 
+                                            data-product-id="<?php echo $product['product_id']; ?>" 
+                                            data-qty="1">
                                         <i class="fas fa-shopping-cart"></i> Add to Cart
                                     </button>
                                 </div>
@@ -188,6 +205,9 @@ $products_page = array_slice($products, $offset, $per_page);
         <?php endif; ?>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function applyFilters() {
             const category = document.getElementById('category-filter').value;
@@ -199,8 +219,60 @@ $products_page = array_slice($products, $offset, $per_page);
 
             window.location.href = url;
         }
-    </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        // Add to Cart functionality
+        $(document).ready(function() {
+            updateCartCount();
+
+            $(document).on('click', '.add-to-cart-btn', function() {
+                const btn = $(this);
+                const productId = btn.data('product-id');
+                const qty = btn.data('qty') || 1;
+                
+                const originalText = btn.html();
+                btn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Adding...');
+                
+                $.ajax({
+                    url: '../actions/add_to_cart_action.php',
+                    method: 'POST',
+                    data: { p_id: productId, qty: qty },
+                    dataType: 'json',
+                    success: function(res) {
+                        if (res.status === 'success') {
+                            updateCartCount();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Added to Cart!',
+                                text: res.message,
+                                timer: 2000,
+                                showConfirmButton: false
+                            });
+                            btn.prop('disabled', false).html(originalText);
+                        } else {
+                            Swal.fire('Error', res.message, 'error');
+                            btn.prop('disabled', false).html(originalText);
+                        }
+                    },
+                    error: function() {
+                        Swal.fire('Error', 'Failed to add to cart', 'error');
+                        btn.prop('disabled', false).html(originalText);
+                    }
+                });
+            });
+
+            function updateCartCount() {
+                $.ajax({
+                    url: '../actions/fetch_cart_action.php',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(res) {
+                        if (res.status === 'success' && $('#cart-count').length) {
+                            $('#cart-count').text(res.count || 0);
+                        }
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
